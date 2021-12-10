@@ -18,7 +18,6 @@ import usuarioScreen from "./screens/usuario";
 import recomendationScreen from "./screens/recomendation";
 import { ImageBackground } from "react-native-web";
 import { abs } from "react-native-reanimated";
-import informationScreen from "./screens/information";
 
 const Stack = createStackNavigator();
 
@@ -80,18 +79,18 @@ function searchScreen({ navigation }) {
 			<Text style={styles.results}>137 results found</Text>
 			<View style={styles.container3}>
 				<View style={[styles.box, styles.box1]}>
-					<TouchableOpacity style={styles.card}>
-						<Text
-							style={styles.button3}
-							onPress={() => navigation.navigate("recomendation")}
-						>
+					<TouchableOpacity
+						onPress={() => navigation.navigate("information")}
+						style={styles.card}
+					>
+						<Text style={styles.button3}>
 							<Icon name="heart" size={20} color="red" /> Tacos de carne Asada
 						</Text>
 						<Image
-							onPress={() => navigation.navigate("information")}
 							source={{
 								uri: "https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=894&q=80",
 							}}
+							W
 							style={styles.cardimagen}
 						></Image>
 						<Text style={styles.cardtext}>
@@ -198,6 +197,25 @@ function LoginScreen({ navigation }) {
 					</Text>{" "}
 				</Text>
 			</View>
+			<View style={{ marginTop: "10%", width: "30%" }}>
+				<Text
+					onPress={() => navigation.navigate("search")}
+					style={{
+						height: 42,
+						width: "80%",
+						justifyContent: "center",
+						alignItems: "center",
+						borderRadius: 10,
+						backgroundColor: "#26B4DD",
+						alignSelf: "center",
+						textAlign: "center",
+						color: "white",
+						padding: 5,
+					}}
+				>
+					skip!
+				</Text>
+			</View>
 		</View>
 	);
 }
@@ -292,19 +310,48 @@ function RegisterScreen({ navigation }) {
 	);
 }
 
+const Width = Dimensions.get("window").width;
+const Height = Dimensions.get("window").height;
+
+function informationScreen({ navigation }) {
+	return (
+		<View style={[styles.box, styles.box1]}>
+			<TouchableOpacity
+				onPress={() => navigation.navigate("information")}
+				style={styles.card}
+			>
+				<Text style={styles.button3}>Tacos de carne Asada</Text>
+				<Image
+					source={{
+						uri: "https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=894&q=80",
+					}}
+					W
+					style={styles.cardimagen}
+				></Image>
+				<Text style={styles.cardtext}>
+					Tortillas de maíz pequeñas, rellenas con carne de res asada al carbón.
+					Se sirven acompañados de frijoles de la olla y col picada. Son típicos
+					de Puerto Vallarta
+				</Text>
+				<Text style={styles.cardtext}>Dirección</Text>
+			</TouchableOpacity>
+		</View>
+	);
+}
+
 //Pantalla principal
 export default function App() {
 	return (
 		<NavigationContainer>
-			<Stack.Navigator initialRouteName="Home">
-				<Stack.Screen
-					name="Home"
-					component={HomeScreen}
-					options={{ headerShown: false }}
-				/>
+			<Stack.Navigator initialRouteName="login">
 				<Stack.Screen
 					name="login"
 					component={LoginScreen}
+					options={{ headerShown: false }}
+				/>
+				<Stack.Screen
+					name="Home"
+					component={HomeScreen}
 					options={{ headerShown: false }}
 				/>
 				<Stack.Screen
@@ -515,5 +562,10 @@ const styles = StyleSheet.create({
 	box1: { backgroundColor: "#FFF" },
 	box2: {
 		backgroundColor: "#FFF",
+	},
+	wrap: {
+		flex: 1,
+		width: Width,
+		height: Height * 0.25,
 	},
 });

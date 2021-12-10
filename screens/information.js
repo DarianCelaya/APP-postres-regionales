@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { Text, View } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
+import { ImageBackground } from "react-native-web";
 
 function informationScreen({ navigation }) {
 	return (
-		<View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-			<Text>informacion del platillo</Text>
+		<View style={{ flex: 1 }}>
+			<Text>Hola</Text>
 		</View>
 	);
 }
