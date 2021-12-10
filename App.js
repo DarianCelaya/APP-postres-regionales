@@ -1,7 +1,7 @@
 import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import Icon from "react-native-vector-icons/FontAwesome";
-import React from "react";
+import React, { PureComponent } from "react";
 import {
 	StyleSheet,
 	Text,
@@ -10,12 +10,15 @@ import {
 	Image,
 	TouchableOpacity,
 	Dimensions,
+	FlatList,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import usuarioScreen from "./screens/usuario";
 import recomendationScreen from "./screens/recomendation";
 import { ImageBackground } from "react-native-web";
+import { abs } from "react-native-reanimated";
+import informationScreen from "./screens/information";
 
 const Stack = createStackNavigator();
 
@@ -57,6 +60,7 @@ function HomeScreen({ navigation }) {
 		</View>
 	);
 }
+
 //pantalla search
 function searchScreen({ navigation }) {
 	return (
@@ -73,7 +77,47 @@ function searchScreen({ navigation }) {
 			<Text style={styles.buscar2}>
 				<Icon name="search" size={15} color="black" /> Double click to edit{" "}
 			</Text>
-			<Text style={{ marginLeft: "10" }}>137 results found</Text>
+			<Text style={styles.results}>137 results found</Text>
+			<View style={styles.container3}>
+				<View style={[styles.box, styles.box1]}>
+					<TouchableOpacity style={styles.card}>
+						<Text
+							style={styles.button3}
+							onPress={() => navigation.navigate("recomendation")}
+						>
+							<Icon name="heart" size={20} color="red" /> Tacos de carne Asada
+						</Text>
+						<Image
+							onPress={() => navigation.navigate("information")}
+							source={{
+								uri: "https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=894&q=80",
+							}}
+							style={styles.cardimagen}
+						></Image>
+						<Text style={styles.cardtext}>
+							Tortillas de maíz pequeñas, rellenas con carne de res asada al
+							carbón. Se sirven acompañados de frijoles de la olla y col picada.
+							Son típicos de Puerto Vallarta
+						</Text>
+					</TouchableOpacity>
+				</View>
+				<View style={[styles.box, styles.box2]}>
+					<TouchableOpacity style={styles.card}>
+						<Text
+							style={styles.button3}
+							onPress={() => navigation.navigate("recomendation")}
+						>
+							<Icon name="heart" size={20} color="red" /> Tacos pescado
+						</Text>
+						<Image
+							source={{
+								uri: "https://images.unsplash.com/photo-1627564803215-ad55bad5c5ea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+							}}
+							style={styles.cardimagen}
+						></Image>
+					</TouchableOpacity>
+				</View>
+			</View>
 		</View>
 	);
 }
@@ -279,6 +323,11 @@ export default function App() {
 					options={{ headerShown: false }}
 				/>
 				<Stack.Screen
+					name="information"
+					component={informationScreen}
+					options={{ headerShown: false }}
+				/>
+				<Stack.Screen
 					name="usuario"
 					component={usuarioScreen}
 					options={{ headerShown: false }}
@@ -290,6 +339,9 @@ export default function App() {
 
 const { height } = Dimensions.get("screen");
 const height_logo = height * 0.28;
+
+var box_count = 2;
+var box_height = height / box_count;
 
 const styles = StyleSheet.create({
 	container: {
@@ -362,6 +414,17 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		alignItems: "center",
 	},
+	button3: {
+		textAlign: "left",
+		padding: 15,
+		borderRadius: 4,
+		marginLeft: 2,
+		marginRight: 25,
+		fontSize: 15,
+		color: "black",
+		fontWeight: "bold",
+		alignItems: "center",
+	},
 	iconito: {
 		marginRight: 10,
 		paddingRight: 10,
@@ -398,6 +461,59 @@ const styles = StyleSheet.create({
 		color: "#898989",
 		margin: 10,
 		padding: 15,
+		backgroundColor: "#FFF",
+	},
+	results: {
+		marginLeft: 10,
+		fontWeight: "bold",
+		fontSize: 14,
+	},
+	container2: {
+		flex: 1,
+		marginTop: 15,
+		padding: 15,
+		alignItems: "center",
+		justifyContent: "center",
+	},
+	cardtext: {
+		fontSize: 13,
+		textAlign: "justify",
+		marginTop: 5,
+		marginLeft: 5,
+		marginRight: 5,
+	},
+	card: {
+		backgroundColor: "#fff",
+		marginBottom: 5,
+		marginTop: 10,
+		marginLeft: "2%",
+		width: "96%",
+		height: "50%",
+		shadowColor: "#000",
+	},
+	cardimagen: {
+		width: "100%",
+		height: 200,
+		resizeMode: "cover",
+	},
+	btnfav: {
+		marginTop: 2,
+		marginLeft: 0,
+		paddingTop: 5,
+		width: 50,
+		height: 50,
+		alignItems: "center",
+		textAlign: "center",
+	},
+	container3: {
+		flex: 1,
+		flexDirection: "column",
+	},
+	box: {
+		height: box_height,
+	},
+	box1: { backgroundColor: "#FFF" },
+	box2: {
 		backgroundColor: "#FFF",
 	},
 });
