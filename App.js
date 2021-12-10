@@ -334,6 +334,10 @@ function informationScreen({ navigation }) {
 					de Puerto Vallarta
 				</Text>
 				<Text style={styles.cardtext}>Dirección</Text>
+				<Text style={styles.cardtext}>
+					La rellena, Av. luis encinas y quintero arce. Hermosillo, Sonora,
+					Mexico
+				</Text>
 			</TouchableOpacity>
 		</View>
 	);
